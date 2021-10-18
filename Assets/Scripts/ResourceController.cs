@@ -14,10 +14,16 @@ public class ResourceController : MonoBehaviour
     private ResourceConfig _config;
     private int _level = 1;
 
+    public bool IsUnlocked { get; private set; }
+
     public void SetConfig(ResourceConfig config)
     {
         _config = config;
         ResourceDescription.text = $"{_config.Name} Lv.{_level}\n+{GetOutput().ToString("0")}";
+        ResourceUnlockCost.text = $"Unlock Cost\n{ _config.UnlockCost }";
+        ResourceUpgradeCost.text = $"Upgrade Cost\n{ GetUpgradeCost() }";
+
+        SetUnlocked(_config.UnlockCost == 0);
     }
 
     public double GetOutput()
@@ -41,7 +47,42 @@ public class ResourceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ResourceButton.onClick.AddListener(UpgradeLevel);
+        ResourceButton.onClick.AddListener(()=>
+        {
+            if (IsUnlocked)
+            {
+                UpgradeLevel();
+            }
+            else
+            {
+                UnlockResource();
+            }
+        }
+        );
+
+    }
+
+    public void UnlockResource()
+    {
+        double unlockCost = GetUnlockCost();
+        if(GameManager.instance._totalGold < unlockCost)
+        {
+            return;
+        }
+        SetUnlocked(true);
+        GameManager.instance.ShowNextResource();
+        
+    }
+
+    public void SetUnlocked(bool unlocked)
+
+    {
+
+        IsUnlocked = unlocked;
+        ResourceImage.color = IsUnlocked ? Color.white : Color.grey;
+        ResourceUnlockCost.gameObject.SetActive(!unlocked);
+        ResourceUpgradeCost.gameObject.SetActive(unlocked);
+
     }
 
     public void UpgradeLevel()

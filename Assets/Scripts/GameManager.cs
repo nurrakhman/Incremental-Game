@@ -64,13 +64,21 @@ public class GameManager : MonoBehaviour
     {
         foreach (ResourceController resource in _activeResources)
         {
-            bool isBuyable = _totalGold >= resource.GetUpgradeCost();
-            resource.ResourceImage.sprite = ResourcesSprites[isBuyable ? 1 : 0];
+            bool isBuyable = false;
+            if (resource.IsUnlocked)
+            {
+                isBuyable = _totalGold >= resource.GetUpgradeCost();
+            }
+            else
+            {
+                isBuyable = _totalGold >= resource.GetUnlockCost();
+            }
         }
     }
 
     private void AddAllResources()
     {
+        bool showResources = true;
         foreach (ResourceConfig config in ResourcesConfigs)
 
         {
@@ -82,9 +90,26 @@ public class GameManager : MonoBehaviour
 
 
             resource.SetConfig(config);
+            obj.gameObject.SetActive(showResources);
+            if(showResources && !resource.IsUnlocked)
+            {
+                showResources = false;
+            }
 
             _activeResources.Add(resource);
 
+        }
+    }
+
+    public void ShowNextResource()
+    {
+        foreach (ResourceController resource in _activeResources)
+        {
+            if (!resource.gameObject.activeSelf)
+            {
+                resource.gameObject.SetActive(true);
+                break;
+            }
         }
     }
 
@@ -95,11 +120,11 @@ public class GameManager : MonoBehaviour
         double output = 0;
 
         foreach (ResourceController resource in _activeResources)
-
         {
-
-            output += resource.GetOutput();
-
+            if (resource.IsUnlocked)
+            {
+                output += resource.GetOutput();
+            }
         }
 
 
@@ -135,11 +160,11 @@ public class GameManager : MonoBehaviour
         double output = 0;
 
         foreach (ResourceController resource in _activeResources)
-
         {
-
-            output += resource.GetOutput();
-
+            if (resource.IsUnlocked)
+            {
+                output += resource.GetOutput();
+            }
         }
 
 

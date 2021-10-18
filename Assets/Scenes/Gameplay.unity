@@ -1536,6 +1536,18 @@ MonoBehaviour:
     UnlockCost: 0
     UpgradeCost: 1
     Output: 2
+  - Name: Pegawai Magang
+    UnlockCost: 100
+    UpgradeCost: 100
+    Output: 200
+  - Name: Pegawai Tetap
+    UnlockCost: 10000
+    UpgradeCost: 10000
+    Output: 20000
+  - Name: Manager
+    UnlockCost: 1000000
+    UpgradeCost: 1000000
+    Output: 2000000
   ResourcesSprites:
   - {fileID: 21300000, guid: 530301b4f0773f849bb3d5fe546dad64, type: 3}
   - {fileID: 21300000, guid: d0a7b9990ce66754a987c9c704f1c49e, type: 3}
