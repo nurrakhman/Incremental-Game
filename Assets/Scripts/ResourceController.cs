@@ -71,6 +71,7 @@ public class ResourceController : MonoBehaviour
         }
         SetUnlocked(true);
         GameManager.instance.ShowNextResource();
+        AchievementController.Instance.UnlockAchievement(AchievementType.UnlockResource, _config.Name);
         
     }
 
