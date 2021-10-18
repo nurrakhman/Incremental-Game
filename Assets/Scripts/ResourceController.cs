@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ResourceController : MonoBehaviour
 {
+    public Button ResourceButton;
+    public Image ResourceImage;
     public Text ResourceDescription;
     public Text ResourceUpgradeCost;
     public Text ResourceUnlockCost;
@@ -39,7 +41,22 @@ public class ResourceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ResourceButton.onClick.AddListener(UpgradeLevel);
+    }
+
+    public void UpgradeLevel()
+    {
+        double upgradeCost = GetUpgradeCost();
+        if(GameManager.instance._totalGold < upgradeCost)
+        {
+            return;
+        }
+
+        GameManager.instance.AddGold(-upgradeCost);
+        _level++;
+
+        ResourceUpgradeCost.text = $"Upgrade Cost\n {GetUpgradeCost()}";
+        ResourceDescription.text = $"{ _config.Name } Lv. { _level }\n+{ GetOutput().ToString("0") }";
     }
 
     // Update is called once per frame

@@ -1536,6 +1536,9 @@ MonoBehaviour:
     UnlockCost: 0
     UpgradeCost: 1
     Output: 2
+  ResourcesSprites:
+  - {fileID: 21300000, guid: 530301b4f0773f849bb3d5fe546dad64, type: 3}
+  - {fileID: 21300000, guid: d0a7b9990ce66754a987c9c704f1c49e, type: 3}
   ResourcesParent: {fileID: 1508232703}
   ResourcePrefab: {fileID: 356369605628648805, guid: f62cb370b3bb5d046b292a9e7cc7f01a,
     type: 3}
@@ -1544,6 +1547,7 @@ MonoBehaviour:
   CoinIcon: {fileID: 1901262541}
   GoldInfo: {fileID: 646570756}
   AutoCollectInfo: {fileID: 2105005969}
+  _totalGold: 0
 --- !u!4 &2069793567
 Transform:
   m_ObjectHideFlags: 0
